@@ -1,0 +1,883 @@
+{
+	"folders": [
+		{
+			"name": "DevDen",
+			"path": "."
+		},
+		{
+			"name": "UE5",
+			"path": "A:\\UE_5.3"
+		}
+	],
+	"settings": {
+		"typescript.tsc.autoDetect": "off",
+		"npm.autoDetect": "off"
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-vscode.cpptools",
+			"ms-dotnettools.csharp"
+		]
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "DevDen Win64 Debug Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Debug",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 Debug Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Debug",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDen Win64 Debug Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 Debug Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Debug",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 DebugGame Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"DebugGame",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"DebugGame",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDen Win64 DebugGame Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 DebugGame Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"DebugGame",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 Development Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Development",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 Development Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Development",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDen Win64 Development Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 Development Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Development",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 Test Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Test",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 Test Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Test",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDen Win64 Test Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 Test Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Test",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 Shipping Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Shipping",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 Shipping Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Shipping",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDen Win64 Shipping Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen Win64 Shipping Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDen",
+					"Win64",
+					"Shipping",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Debug Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Debug",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Debug Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Debug",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDen IOS Debug Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Debug Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Debug",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS DebugGame Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"DebugGame",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"DebugGame",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDen IOS DebugGame Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS DebugGame Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"DebugGame",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Development Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Development",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Development Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Development",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDen IOS Development Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Development Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Development",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Test Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Test",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Test Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Test",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDen IOS Test Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Test Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Test",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Shipping Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Shipping",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Shipping Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Shipping",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDen IOS Shipping Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDen IOS Shipping Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDen",
+					"IOS",
+					"Shipping",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDenEditor Win64 Debug Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDenEditor",
+					"Win64",
+					"Debug",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDenEditor Win64 Debug Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDenEditor",
+					"Win64",
+					"Debug",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDenEditor Win64 Debug Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDenEditor Win64 Debug Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDenEditor",
+					"Win64",
+					"Debug",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDenEditor Win64 DebugGame Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDenEditor",
+					"Win64",
+					"DebugGame",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDenEditor Win64 DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDenEditor",
+					"Win64",
+					"DebugGame",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDenEditor Win64 DebugGame Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDenEditor Win64 DebugGame Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDenEditor",
+					"Win64",
+					"DebugGame",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDenEditor Win64 Development Build",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDenEditor",
+					"Win64",
+					"Development",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDenEditor Win64 Development Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"DevDenEditor",
+					"Win64",
+					"Development",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"DevDenEditor Win64 Development Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			},
+			{
+				"label": "DevDenEditor Win64 Development Clean",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+				"args": [
+					"DevDenEditor",
+					"Win64",
+					"Development",
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "A:\\UE_5.3"
+				}
+			}
+		]
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Launch DevDen (Debug)",
+				"request": "launch",
+				"program": "A:\\Unreal Projects\\DevDen\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
+				"preLaunchTask": "DevDen Win64 Debug Build",
+				"args": [
+				],
+				"cwd": "A:\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "A:\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "A:\\UE_5.3"
+				}
+			},
+			{
+				"name": "Launch DevDen (DebugGame)",
+				"request": "launch",
+				"program": "A:\\Unreal Projects\\DevDen\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
+				"preLaunchTask": "DevDen Win64 DebugGame Build",
+				"args": [
+				],
+				"cwd": "A:\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "A:\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "A:\\UE_5.3"
+				}
+			},
+			{
+				"name": "Launch DevDen (Development)",
+				"request": "launch",
+				"program": "A:\\Unreal Projects\\DevDen\\Binaries\\Win64\\UnrealGame.exe",
+				"preLaunchTask": "DevDen Win64 Development Build",
+				"args": [
+				],
+				"cwd": "A:\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "A:\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "A:\\UE_5.3"
+				}
+			},
+			{
+				"name": "Launch DevDen (Test)",
+				"request": "launch",
+				"program": "A:\\Unreal Projects\\DevDen\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
+				"preLaunchTask": "DevDen Win64 Test Build",
+				"args": [
+				],
+				"cwd": "A:\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "A:\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "A:\\UE_5.3"
+				}
+			},
+			{
+				"name": "Launch DevDen (Shipping)",
+				"request": "launch",
+				"program": "A:\\Unreal Projects\\DevDen\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
+				"preLaunchTask": "DevDen Win64 Shipping Build",
+				"args": [
+				],
+				"cwd": "A:\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "A:\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "A:\\UE_5.3"
+				}
+			},
+			{
+				"name": "Launch DevDenEditor (Debug)",
+				"request": "launch",
+				"program": "A:\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-Debug.exe",
+				"preLaunchTask": "DevDenEditor Win64 Debug Build",
+				"args": [
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject"
+				],
+				"cwd": "A:\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "A:\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "A:\\UE_5.3"
+				}
+			},
+			{
+				"name": "Launch DevDenEditor (DebugGame)",
+				"request": "launch",
+				"program": "A:\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-DebugGame.exe",
+				"preLaunchTask": "DevDenEditor Win64 DebugGame Build",
+				"args": [
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject"
+				],
+				"cwd": "A:\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "A:\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "A:\\UE_5.3"
+				}
+			},
+			{
+				"name": "Launch DevDenEditor (Development)",
+				"request": "launch",
+				"program": "A:\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
+				"preLaunchTask": "DevDenEditor Win64 Development Build",
+				"args": [
+					"A:\\Unreal Projects\\DevDen\\DevDen.uproject"
+				],
+				"cwd": "A:\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "A:\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "A:\\UE_5.3"
+				}
+			},
+			{
+				"name": "Generate Project Files",
+				"type": "coreclr",
+				"request": "launch",
+				"preLaunchTask": "UnrealBuildTool Win64 Development Build",
+				"program": "A:\\UE_5.3\\Engine\\Build\\BatchFiles\\RunUBT.bat",
+				"args": [
+					"-projectfiles",
+					"-vscode",
+					"-project=A:\\Unreal Projects\\DevDen\\DevDen.uproject",
+					"-game",
+					"-engine",
+					"-dotnet"
+				],
+				"console": "externalTerminal",
+				"stopAtEntry": false,
+				"cwd": "A:\\UE_5.3"
+			}
+		]
+	}
+}
