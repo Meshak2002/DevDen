@@ -4,15 +4,12 @@
 #include "MyCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Kismet/GameplayStatics.h" 
 #include "Engine/Engine.h"  
-#include "Components/SphereComponent.h"
 #include "GameFramework/CharacterMovementComponent.h" 
 #include "BP_Urumi_.h"
 #include "HealthComponent.h"
 #include "SwordComboNotify.h"
 #include "SwordGrappleNotify.h"
-#include "EnemyAnims.h"
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
 #include <Perception/AISense_Sight.h>
 
@@ -54,7 +51,6 @@ void AMyCharacter::BeginPlay()
 void AMyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
 }
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -128,7 +124,10 @@ void AMyCharacter::OnComboNotified()
 	attackIndex--;
 	for (UHealthComponent* enemyHealth : actorsHealth)
 	{
-		enemyHealth->Recover();
+		if(enemyHealth)
+			enemyHealth->Recover(actorsHealth);
+		else
+			actorsHealth.Remove(enemyHealth);
 	}
 	if (attackIndex < 0)
 	{
@@ -154,13 +153,6 @@ void AMyCharacter::OnGrappleNotified()
 	}
 	GetWorldTimerManager().SetTimer(DistanceCheckTimerHandle, this, &AMyCharacter::DelayOnHook, 1.0f, false);
 }
-void AMyCharacter::SetupStimulusSource()
-{
-	if (!stimulus)
-		return;
-	stimulus->RegisterForSense(TSubclassOf<UAISense_Sight>()); 
-	stimulus->RegisterWithPerceptionSystem();
-}
 
 void AMyCharacter::DelayOnHook()
 {
@@ -179,8 +171,8 @@ void AMyCharacter::ReleaseHook()
 		weapon->UnHook();
 		UHealthComponent* eneHealth = grabbedActor->FindComponentByClass<UHealthComponent>();
 		if (!eneHealth) return;
-		eneHealth->Recover();
-		eneHealth->Damage(1, actorsHealth,EDamageType::Grapple);
+		eneHealth->Recover(actorsHealth);
+		eneHealth->Damage(1,this, actorsHealth,FVector::Zero(),EDamageType::Grapple);
 		hookDetected = false;
 	}
 }
@@ -188,6 +180,14 @@ void AMyCharacter::ReleaseHook()
 AActor* AMyCharacter::closerTarget()
 {
 	return nullptr;
+}
+
+void AMyCharacter::SetupStimulusSource()
+{
+	if (!stimulus)
+		return;
+	stimulus->RegisterForSense(TSubclassOf<UAISense_Sight>()); 
+	stimulus->RegisterWithPerceptionSystem();
 }
 
 void AMyCharacter::StartAttack()
@@ -243,21 +243,21 @@ void AMyCharacter::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted
 void AMyCharacter::LineTrace()
 {
 	if (!weapon->urumiWeapon)
-		return; 
+		return;
 	USkeletalMeshComponent* mesh = weapon->urumiWeapon;
 	FCollisionQueryParams TraceParams;
 	weapon->urumiWeapon->SetCollisionProfileName("NoCollision");
 	TraceParams.AddIgnoredActor(this);
 	TraceParams.AddIgnoredActor(weapon);
 
-	for (int i = 1; i <= 4; i++)
+	for (int i = 1; i <= 13; i++)
 	{
 		FString SocketNameStart = FString::Printf(TEXT("s%d"), i);
 		FString SocketNameEnd = FString::Printf(TEXT("s%d"), i + 1);
 		FVector StartLocation = mesh->GetSocketLocation(FName(*SocketNameStart));
 		FVector EndLocation = mesh->GetSocketLocation(FName(*SocketNameEnd));
-		GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECC_Visibility, TraceParams);
-		DrawDebugLine(GetWorld(), StartLocation, EndLocation, FColor::Red, false, 1, 0, 1); //Debug lines
+		GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECC_WorldDynamic, TraceParams);
+		//DrawDebugLine(GetWorld(), StartLocation, EndLocation, FColor::Red, false, 1, 0, 1); //Debug lines
 		if (HitResult.bBlockingHit)
 		{
 			UHealthComponent* healthComp = HitResult.GetActor()->FindComponentByClass<UHealthComponent>();
@@ -265,9 +265,20 @@ void AMyCharacter::LineTrace()
 				return;
 			if (!actorsHealth.Contains(healthComp))
 				actorsHealth.Add(healthComp);
-			healthComp->Damage(damagePower, actorsHealth);
+			healthComp->Damage(damagePower,this,actorsHealth,HitResult.ImpactPoint);
 		}
 	}
+	MakeFreeFlowCombat();
+}
+
+void AMyCharacter::MakeFreeFlowCombat()
+{
+	FRotator ControlRotation = GetControlRotation();
+	FRotator NewRotation(0.0f, ControlRotation.Yaw, 0.0f);  // Keep only the yaw
+
+	// Smoothly update rotation
+	FRotator InterpolatedRotation = FMath::RInterpTo(GetActorRotation(), NewRotation, GetWorld()->DeltaTimeSeconds, 5.0f);
+	SetActorRotation(InterpolatedRotation);
 }
 
 void AMyCharacter::SwitchToSwordCol()

@@ -36,11 +36,11 @@ void AEnemyAIController::SetupPerception()
 	{
 		UAIPerceptionComponent* perceptionCmp = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception_Cmp"));
 		SetPerceptionComponent(*perceptionCmp);
-		aiSightConfig->SightRadius = 500;
+		aiSightConfig->SightRadius = 1000;
 		aiSightConfig->LoseSightRadius = aiSightConfig->SightRadius + 25;
 		aiSightConfig->PeripheralVisionAngleDegrees = 90;
 		aiSightConfig->SetMaxAge(5.f);
-		aiSightConfig->AutoSuccessRangeFromLastSeenLocation = 520.f;
+		aiSightConfig->AutoSuccessRangeFromLastSeenLocation = 1100.f;
 		aiSightConfig->DetectionByAffiliation.bDetectEnemies = true;
 		aiSightConfig->DetectionByAffiliation.bDetectFriendlies = true;
 		aiSightConfig->DetectionByAffiliation.bDetectNeutrals = true;

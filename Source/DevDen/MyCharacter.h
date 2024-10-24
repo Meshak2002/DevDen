@@ -103,6 +103,8 @@ private :
 
 	void DelayOnHook();
 
+	void MakeFreeFlowCombat();
+
 	AActor* closerTarget();
 
 	AActor* grabbedActor;

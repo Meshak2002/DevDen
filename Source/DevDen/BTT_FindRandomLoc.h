@@ -21,4 +21,8 @@ public :
 
 	 UPROPERTY(EditAnywhere , BlueprintReadWrite)
 	 float searchableRadius;
+
+
+	/* UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (MakeEditableWidget = true, AllowPrivateAccess = true))
+	 TArray<FVector> pathPoints;  */ //this meta allows to visually place the path vector points in world
 };

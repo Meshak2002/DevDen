@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "NiagaraComponent.h"
 #include "HealthComponent.generated.h"
 
 UENUM()
@@ -36,13 +37,24 @@ protected:
 	void Die(TArray<UHealthComponent*>& actorsHealth);
 
 public:
-	void Damage(int Damage, TArray<UHealthComponent*>& actorsHealth, EDamageType damageType=EDamageType::NONE);
-	void Recover();
+	void Damage(int Damage, AActor* damager , TArray<UHealthComponent*>& actorsHealth,FVector damagePoint=FVector::Zero(), EDamageType damageType=EDamageType::NONE);
+	void Recover(TArray<UHealthComponent*>& actorsHealth);
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	class UEnemyAnims* enemyAnim;
 
 	UPROPERTY(EditAnywhere)
 	UParticleSystem* impactGrappleFX;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UNiagaraSystem* bloodFx;
+	
+	
+private :
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* hitAnim;
+
+	UPROPERTY()
+	USkeletalMeshComponent* skeletalMesh;
 };
 
