@@ -52,7 +52,7 @@ void AEnemyAIController::SetupPerception()
 
 void AEnemyAIController::TargetDetected(AActor* actor, FAIStimulus const stimulus)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "TargetDetected");
+	//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "TargetDetected");
 	if (auto* character = Cast<AMyCharacter>(actor))
 	{
 		GetBlackboardComponent()->SetValueAsBool("bPlayerDetected", stimulus.WasSuccessfullySensed());

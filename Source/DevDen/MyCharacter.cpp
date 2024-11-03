@@ -33,19 +33,35 @@ AMyCharacter::AMyCharacter()
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	SpawnSword();
+	
 	if (eneDetectCollider)
 	{
-		//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "Fixed");
 		eneDetectCollider->OnComponentBeginOverlap.AddDynamic(this, &AMyCharacter::OnColOverlapBegin);
 		eneDetectCollider->OnComponentEndOverlap.AddDynamic(this, &AMyCharacter::OnColOverlapEnd);
 	}
 	else
-	{
-		//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "NOPE");
-	}
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, "NOPE");
 	SetupNotify(AttackAnimMontage);
 	SetupNotify(hAttackAnimMontage);
+}
 
+void AMyCharacter::SpawnSword()
+{
+	FTransform SpawnTransform;
+	FActorSpawnParameters spawnParameters;
+	spawnParameters.Owner = this;
+	spawnParameters.Instigator = GetInstigator();
+	spawnedSword = GetWorld()->SpawnActor<AActor>(urumiActor,SpawnTransform,spawnParameters);
+	if(spawnedSword)
+	{
+		FAttachmentTransformRules attachRules =  FAttachmentTransformRules::KeepRelativeTransform;
+		spawnedSword->AttachToComponent(GetMesh(),attachRules,TEXT("hand_rSocket"));
+		weapon = Cast<ABP_Urumi_>(spawnedSword);
+		if(weapon)
+			return;
+		GEngine->AddOnScreenDebugMessage(-1,5,FColor::Red,"Problem");
+	}
 }
 
 void AMyCharacter::Tick(float DeltaTime)
@@ -64,38 +80,23 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction("Hattack", IE_Pressed, this, &AMyCharacter::HeavyAttack);
 	PlayerInputComponent->BindAction("Hattack", IE_Released, this, &AMyCharacter::ReleaseHook);
 }
-void AMyCharacter::MoveForw(float inputValue)
-{
-	AddMovementInput(camera->GetForwardVector(), inputValue);
-}
-void AMyCharacter::Strafe(float inputValue)
-{
-	AddMovementInput(camera->GetRightVector(), inputValue);
-}
-void AMyCharacter::MouseSide(float inputValue)
-{
-	AddControllerYawInput(inputValue);
-}
-void AMyCharacter::MouseUpp(float inputValue)
-{
-	AddControllerPitchInput(inputValue);
-}
+void AMyCharacter::MoveForw(float inputValue){	AddMovementInput(camera->GetForwardVector(), inputValue);}
+void AMyCharacter::Strafe(float inputValue){	AddMovementInput(camera->GetRightVector(), inputValue);}
+void AMyCharacter::MouseSide(float inputValue){ AddControllerYawInput(inputValue);}
+void AMyCharacter::MouseUpp(float inputValue){	AddControllerPitchInput(inputValue);}
 
 void AMyCharacter::OnColOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (!OtherActor || (OtherActor == this)) // Check if the other actor is valid and not self
-	{
 		return;
-	}
 	if (!enemiesInRange.Contains(OtherActor) && OtherActor->FindComponentByClass<UHealthComponent>())
 		enemiesInRange.Add(OtherActor);
 }
+
 void AMyCharacter::OnColOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	if (!OtherActor || (OtherActor == this)) // Check if the other actor is valid and not self
-	{
 		return;
-	}
 	if (enemiesInRange.Contains(OtherActor))
 		enemiesInRange.Remove(OtherActor);
 }
@@ -104,7 +105,6 @@ void AMyCharacter::SetupNotify(UAnimMontage* animMontage)
 {
 	if (!animMontage)
 		return;
-
 	const auto notifyEvents = animMontage->Notifies;
 	for (FAnimNotifyEvent eventNotify : notifyEvents)
 	{
@@ -130,9 +130,7 @@ void AMyCharacter::OnComboNotified()
 			actorsHealth.Remove(enemyHealth);
 	}
 	if (attackIndex < 0)
-	{
 		StopAnimMontage(AttackAnimMontage);
-	}
 }
 
 void AMyCharacter::OnGrappleNotified()
@@ -144,13 +142,9 @@ void AMyCharacter::OnGrappleNotified()
 	GetCharacterMovement()->DisableMovement();
 	GetMesh()->GetAnimInstance()->Montage_Pause(hAttackAnimMontage);
 	if (USkeletalMeshComponent* eneSkel = grabbedActor->FindComponentByClass<USkeletalMeshComponent>())
-	{
 		weapon->Hook(impactPos, grabbedActor, FName("Mesh"), FName("Neck"));
-	}
 	else
-	{
 		weapon->Hook(impactPos);
-	}
 	GetWorldTimerManager().SetTimer(DistanceCheckTimerHandle, this, &AMyCharacter::DelayOnHook, 1.0f, false);
 }
 
@@ -177,11 +171,6 @@ void AMyCharacter::ReleaseHook()
 	}
 }
 
-AActor* AMyCharacter::closerTarget()
-{
-	return nullptr;
-}
-
 void AMyCharacter::SetupStimulusSource()
 {
 	if (!stimulus)
@@ -201,15 +190,13 @@ void AMyCharacter::StartAttack()
 	if (!isMontagPlaying)
 	{
 		attackIndex = 0;
-		PlayAnimMontage(AttackAnimMontage);
+		PlayAnimMontage(AttackAnimMontage,1.5);
 		FOnMontageEnded OnMontageEndedDelegate;
 		OnMontageEndedDelegate.BindUObject(this, &AMyCharacter::OnAttackMontageEnded);
 		GetMesh()->GetAnimInstance()->Montage_SetEndDelegate(OnMontageEndedDelegate, AttackAnimMontage);
 	}
 	else
-	{
 		attackIndex = 1;
-	}
 }
 
 void AMyCharacter::HeavyAttack()
@@ -232,17 +219,13 @@ void AMyCharacter::HeavyAttack()
 void AMyCharacter::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 	if (Montage == AttackAnimMontage)
-	{
 		attackIndex = 0;
-	}
 	if (Montage == hAttackAnimMontage)
-	{
 		hookDetected = false;
-	}
 }
 void AMyCharacter::LineTrace()
 {
-	if (!weapon->urumiWeapon)
+	if (!weapon || !weapon->urumiWeapon)
 		return;
 	USkeletalMeshComponent* mesh = weapon->urumiWeapon;
 	FCollisionQueryParams TraceParams;
@@ -275,7 +258,6 @@ void AMyCharacter::MakeFreeFlowCombat()
 {
 	FRotator ControlRotation = GetControlRotation();
 	FRotator NewRotation(0.0f, ControlRotation.Yaw, 0.0f);  // Keep only the yaw
-
 	// Smoothly update rotation
 	FRotator InterpolatedRotation = FMath::RInterpTo(GetActorRotation(), NewRotation, GetWorld()->DeltaTimeSeconds, 5.0f);
 	SetActorRotation(InterpolatedRotation);
@@ -283,6 +265,16 @@ void AMyCharacter::MakeFreeFlowCombat()
 
 void AMyCharacter::SwitchToSwordCol()
 {
-	weapon->urumiWeapon->SetCollisionProfileName("Sword");
+	if(weapon && weapon->urumiWeapon)
+		weapon->urumiWeapon->SetCollisionProfileName("Sword");
+}
+
+void AMyCharacter::SwitchHands(FName socketName)
+{
+	if(spawnedSword)
+	{
+		FAttachmentTransformRules attachRules =  FAttachmentTransformRules::SnapToTargetIncludingScale;
+		spawnedSword->AttachToComponent(GetMesh(),attachRules,socketName);
+	}
 }
 

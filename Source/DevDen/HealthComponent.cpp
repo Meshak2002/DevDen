@@ -3,6 +3,8 @@
 #include "EnemyAnims.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "NiagaraFunctionLibrary.h"
+#include "Enemy.h"
+#include "AssetTypeActions/AssetDefinition_SoundBase.h"
 
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
@@ -42,11 +44,10 @@ void UHealthComponent::GrappleDamage()
 	}
 }
 
-void UHealthComponent::Die(TArray<UHealthComponent*>& actorsHealth)
+void UHealthComponent::Die()
 {
-	if(actorsHealth.Contains(this))
-		actorsHealth.Remove(this);
-	GetOwner()->Destroy();
+	//Trash
+	//skeletalMesh->GetAnimInstance()->Montage_Pause(dieAnim);
 }
 
 void UHealthComponent::Damage(int Damage, AActor* damager, TArray<UHealthComponent*>& actorsHealth,FVector damagePoint, EDamageType damageType)
@@ -54,24 +55,40 @@ void UHealthComponent::Damage(int Damage, AActor* damager, TArray<UHealthCompone
 	
 	if (isAttacked)
 		return;
+
 	Health -= Damage;
-	isAttacked = true;
+	if(damagePoint!=FVector::Zero() && bloodFx)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),bloodFx,damagePoint,FRotator::ZeroRotator,FVector(1.0f),true);
+		//DrawDebugSphere(GetWorld(),damagePoint,20,20,FColor::Red);
+		if(bloodSound)
+			UGameplayStatics::PlaySoundAtLocation(GetWorld(),bloodSound,damagePoint);
+	}
 	
+	if (Health <= 0)
+	{
+		if(actorsHealth.Contains(this))
+			actorsHealth.Remove(this);
+		if(!dieAnim)
+			return;
+		AEnemy* enemy=Cast<AEnemy>(GetOwner());
+		if(enemy)
+		{
+			enemy->GetController()->Destroy();
+			//GEngine->AddOnScreenDebugMessage(-1,5,FColor::Cyan,"EnemyAI");
+		}
+		skeletalMesh->GetAnimInstance()->Montage_Play(dieAnim,1.5f);
+		DestroyComponent();
+		return;
+	}
+	
+	isAttacked = true;
 	FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(GetOwner()->GetActorLocation(),damager->GetActorLocation());
 	GetOwner()->SetActorRotation(targetRotation);
 	if(hitAnim && (skeletalMesh && hitAnim))
 		skeletalMesh->GetAnimInstance()->Montage_Play(hitAnim,1.5f);
 	if (damageType == EDamageType::Grapple)
 		GrappleDamage();
-	if(damagePoint!=FVector::Zero() && bloodFx)
-	{
-		//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),bloodFx,damagePoint,FRotator::ZeroRotator,true);
-		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),bloodFx,damagePoint,FRotator::ZeroRotator,FVector(1.0f),true);
-		DrawDebugSphere(GetWorld(),damagePoint,20,20,FColor::Red);
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red,FString::Printf(TEXT("DamagePoint: %s"),*FString(damagePoint.ToString()) ));
-	}
-	if (Health <= 0)
-		Die(actorsHealth); 
 } 
 
 

@@ -26,11 +26,15 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	
 	UFUNCTION(BlueprintCallable)
 	UBehaviorTree* GetBahaviorTree();
 
 	void PlayAttackAnim();
+
+	UFUNCTION(BlueprintCallable)
+	void Die();
+
 
 private:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
@@ -57,4 +61,6 @@ private:
 	AActor* const OtherActor,
 	UPrimitiveComponent* OtherComponent,
 	int const OtherBodyIndex);
+
+	
 };

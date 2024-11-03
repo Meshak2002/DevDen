@@ -8,7 +8,7 @@ public class DevDen : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "CableComponent", "Core", "CoreUObject", "Engine", "InputCore", "AIModule" , "GameplayTasks", "NavigationSystem","Niagara" });
+		PublicDependencyModuleNames.AddRange(new string[] { "CableComponent", "Core", "CoreUObject", "Engine", "InputCore", "AIModule" , "GameplayTasks", "NavigationSystem","Niagara","UMG","Slate","SlateCore" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

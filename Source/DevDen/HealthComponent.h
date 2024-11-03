@@ -23,7 +23,13 @@ class DEVDEN_API UHealthComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UHealthComponent();
-
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USoundBase* bloodSound;
+	
+	UFUNCTION(BlueprintCallable)
+	void Die();
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -34,7 +40,6 @@ protected:
 	bool isAttacked;
 
 	void GrappleDamage();
-	void Die(TArray<UHealthComponent*>& actorsHealth);
 
 public:
 	void Damage(int Damage, AActor* damager , TArray<UHealthComponent*>& actorsHealth,FVector damagePoint=FVector::Zero(), EDamageType damageType=EDamageType::NONE);
@@ -53,6 +58,8 @@ public:
 private :
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UAnimMontage* hitAnim;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* dieAnim;
 
 	UPROPERTY()
 	USkeletalMeshComponent* skeletalMesh;

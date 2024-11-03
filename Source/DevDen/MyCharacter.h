@@ -20,9 +20,6 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UCameraComponent* camera;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class USpringArmComponent* cameraSpringArm;
 
 	void MoveForw(float inputValue);
@@ -59,6 +56,10 @@ protected:
 	FHitResult HitResult;
 
 public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UCameraComponent* camera;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	class UAnimMontage* AttackAnimMontage ;
 	
@@ -80,9 +81,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SwitchToSwordCol();
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class ABP_Urumi_* weapon;
+	 TSubclassOf<AActor> urumiActor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* eneDetectCollider;
@@ -97,21 +98,25 @@ public:
 
 	void SetupStimulusSource();
 
+	void SwitchHands(FName socketName);
+	
+	class ABP_Urumi_* weapon;
 
-private : 
+private :
+	
+	AActor* spawnedSword;
+	
 	FTimerHandle DistanceCheckTimerHandle;
-
-	void DelayOnHook();
-
-	void MakeFreeFlowCombat();
-
-	AActor* closerTarget();
 
 	AActor* grabbedActor;
 
 	FVector impactPos;
 
 	bool rtClickPress;
+	
+	void DelayOnHook();
+	void MakeFreeFlowCombat();
+	void SpawnSword();
 
 	UFUNCTION()
 	void OnColOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,

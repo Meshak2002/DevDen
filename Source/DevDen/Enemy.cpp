@@ -52,6 +52,26 @@ void AEnemy::PlayAttackAnim()
 		PlayAnimMontage(attackAnim);
 }
 
+void AEnemy::Die()
+{
+	//GetController()->Destroy();
+
+	
+	if(boxCollider)
+		boxCollider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	USkeletalMeshComponent* MeshComponent = GetMesh();
+	// Loop through all components attached to this character
+	for (UActorComponent* Component : GetComponents())
+	{
+		// Skip the mesh component to keep it intact
+		if (Component != MeshComponent)
+		{
+			Component->DestroyComponent();
+		}
+	}
+}
+
 void AEnemy::OnAttackOverlapBegin(
 	UPrimitiveComponent* const OverlappedComponent,
 	AActor* const OtherActor,
