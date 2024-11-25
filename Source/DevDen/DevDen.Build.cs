@@ -10,7 +10,7 @@ public class DevDen : ModuleRules
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "CableComponent", "Core", "CoreUObject", "Engine", "InputCore", "AIModule" , "GameplayTasks", "NavigationSystem","Niagara","UMG","Slate","SlateCore" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] {  });
+		PrivateDependencyModuleNames.AddRange(new string[] { "GameplayAbilities", "GameplayTags", "GameplayTasks" });
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
@@ -19,5 +19,5 @@ public class DevDen : ModuleRules
 		// PrivateDependencyModuleNames.Add("OnlineSubsystem");
 
 		// To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
-	}
+	} 
 }

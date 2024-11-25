@@ -4,17 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
 #include "MyCharacter.generated.h"
 
 UCLASS()
-class DEVDEN_API AMyCharacter : public ACharacter
+class DEVDEN_API AMyCharacter : public ACharacter  , public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
 	AMyCharacter();
-	
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	UAbilitySystemComponent* Asc;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

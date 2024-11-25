@@ -10,8 +10,13 @@
 #include "HealthComponent.h"
 #include "SwordComboNotify.h"
 #include "SwordGrappleNotify.h"
+#include "Managers/HeroPlayerState.h"
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
 #include <Perception/AISense_Sight.h>
+
+#include "AbilitySystemComponent.h"
+#include "CustomAbility1.h"
+#include "GameplayAbilitySpec.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -30,9 +35,27 @@ AMyCharacter::AMyCharacter()
 	SetupStimulusSource();
 }
 
+UAbilitySystemComponent* AMyCharacter::GetAbilitySystemComponent() const
+{
+	if(	AHeroPlayerState* myPlayerState = Cast<AHeroPlayerState>(GetPlayerState())  )
+	{
+		return myPlayerState->GetAbilitySystemComponent();
+	}
+	return nullptr;
+}
+
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	Asc = GetAbilitySystemComponent();
+	if(Asc)
+	{
+		FGameplayAbilitySpec AbilitySpec(UCustomAbility1::StaticClass());
+		Asc->GiveAbility(AbilitySpec);
+		//Call at heavy attack Input
+	}
+
+	
 	SpawnSword();
 	
 	if (eneDetectCollider)
@@ -201,6 +224,8 @@ void AMyCharacter::StartAttack()
 
 void AMyCharacter::HeavyAttack()
 {
+	if(Asc)
+		Asc->TryActivateAbilityByClass(UCustomAbility1::StaticClass());
 	rtClickPress = true;
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, "Pressed");
 	if (!hAttackAnimMontage || !GetMesh()->GetAnimInstance())
