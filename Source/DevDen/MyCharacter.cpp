@@ -254,7 +254,7 @@ void AMyCharacter::LineTrace()
 		return;
 	USkeletalMeshComponent* mesh = weapon->urumiWeapon;
 	FCollisionQueryParams TraceParams;
-	weapon->urumiWeapon->SetCollisionProfileName("NoCollision");
+	//weapon->urumiWeapon->SetCollisionProfileName("NoCollision");
 	TraceParams.AddIgnoredActor(this);
 	TraceParams.AddIgnoredActor(weapon);
 
@@ -290,8 +290,8 @@ void AMyCharacter::MakeFreeFlowCombat()
 
 void AMyCharacter::SwitchToSwordCol()
 {
-	if(weapon && weapon->urumiWeapon)
-		weapon->urumiWeapon->SetCollisionProfileName("Sword");
+	//if(weapon && weapon->urumiWeapon)
+		//weapon->urumiWeapon->SetCollisionProfileName("Sword");
 }
 
 void AMyCharacter::SwitchHands(FName socketName)

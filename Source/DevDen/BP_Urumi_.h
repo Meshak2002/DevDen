@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "BezierCurve.h"
 #include "BP_Urumi_.generated.h"
 
 UCLASS()
-class DEVDEN_API ABP_Urumi_ : public AActor
+class DEVDEN_API ABP_Urumi_ : public ABezierCurve
 {
 	GENERATED_BODY()
 	
@@ -24,14 +24,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(VisibleAnywhere)
-	USceneComponent* DefaultSceneRoot;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UCableComponent* cableComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	USkeletalMeshComponent* urumiWeapon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AActor* cableEndTarget;

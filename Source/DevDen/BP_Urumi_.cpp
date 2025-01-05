@@ -12,9 +12,9 @@ ABP_Urumi_::ABP_Urumi_()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
-	RootComponent = DefaultSceneRoot;
+	aPt->SetupAttachment(RootComponent);
+	bPt->SetupAttachment(RootComponent);
+	tPt->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -24,6 +24,7 @@ void ABP_Urumi_::BeginPlay()
 	cableEndTarget=GetWorld()->SpawnActor<ACableEndTarget>();
 	cableEndTargetScene = Cast<USceneComponent>(cableEndTarget->GetRootComponent());
 	TurnOnSkeletel();
+
 }
 
 // Called every frame
