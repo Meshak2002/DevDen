@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
 #include "AbilitySystemInterface.h"
+#include "Chaos/CacheManagerActor.h"
 #include "HeroPlayerState.generated.h"
 
 /**
@@ -15,6 +16,9 @@ class DEVDEN_API AHeroPlayerState : public APlayerState , public IAbilitySystemI
 {
 	GENERATED_BODY()
 public:
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	AChaosCachePlayer* ChaosCachePlayer;
+	
 	AHeroPlayerState();
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	
