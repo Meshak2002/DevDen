@@ -113,7 +113,7 @@ void ABezierCurve::DrawCurve()
 		urumiPoseable->SetBoneRotationByName(boneName,FRotator(90,0,0),EBoneSpaces::WorldSpace);
 		//GEngine->AddOnScreenDebugMessage(-1,50,FColor::Cyan,FString::Printf(TEXT("Bone: %s"),*boneName.ToString()));
 		FVector sowrdPt = urumiPoseable->GetBoneLocation(boneName);
-		GEngine->AddOnScreenDebugMessage(-1,50,FColor::Cyan,FString::Printf(TEXT("Bone: %f , %f , %f"),sowrdPt.X,sowrdPt.Y,sowrdPt.Z));
+		//GEngine->AddOnScreenDebugMessage(-1,50,FColor::Cyan,FString::Printf(TEXT("Bone: %f , %f , %f"),sowrdPt.X,sowrdPt.Y,sowrdPt.Z));
 	}
 }
 
@@ -136,7 +136,7 @@ void ABezierCurve::Tick(float DeltaTime)
 
 void ABezierCurve::Temp(USceneComponent* cmp, EUpdateTransformFlags UpdateTransformFlags, ETeleportType teleportType)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "Temp value Changed.................................");
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "Temp value Changed.................................");
 	ResetCurve();
 }
 

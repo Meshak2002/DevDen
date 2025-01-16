@@ -31,10 +31,6 @@
 		{
 			"Name": "GameplayAbilities",
 			"Enabled": true
-		},
-		{
-            		"Name": "ChaosCaching",
-            		"Enabled": true
-        	}
+		}
 	]
 }

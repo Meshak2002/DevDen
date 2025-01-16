@@ -4,7 +4,6 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Enemy.h"
-#include "AssetTypeActions/AssetDefinition_SoundBase.h"
 
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
